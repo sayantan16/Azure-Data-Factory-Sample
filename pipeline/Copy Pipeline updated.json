@@ -8,13 +8,8 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
-						"referenceName": "sa_dataset_covidreporting_marlabs1",
-						"type": "DatasetReference"
-					},
 					"timeout": "0.00:04:00",
-					"sleep": 30,
-					"minimumSize": 1024
+					"sleep": 30
 				}
 			},
 			{
@@ -37,10 +32,6 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
-						"referenceName": "sa_dataset_covidreporting_marlabs1",
-						"type": "DatasetReference"
-					},
 					"fieldList": [
 						"columnCount"
 					],
@@ -178,10 +169,6 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
-								"dataset": {
-									"referenceName": "sa_dataset_covidreporting_marlabs1",
-									"type": "DatasetReference"
-								},
 								"logStorageSettings": {
 									"linkedServiceName": {
 										"referenceName": "sa_linkedsrvc_covidreporting_marlabs",
