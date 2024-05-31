@@ -1,0 +1,21 @@
+{
+	"name": "sa_json_file_covidreporting_marlabs",
+	"properties": {
+		"description": "To import or ingest data in the form of json file which will have all the file relative URLs to be ingested in the ADF",
+		"linkedServiceName": {
+			"referenceName": "sa_linkedsrvc_covidreporting_marlabs",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "file_compilation.json",
+				"folderPath": "json",
+				"container": "raw"
+			}
+		},
+		"schema": {}
+	}
+}
