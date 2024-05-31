@@ -14,6 +14,12 @@
 		"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
 			"value": "https://covidreportingdl1611.dfs.core.windows.net/"
 		},
+		"Storage Trigger_properties_Copy Pipeline updated_parameters_receiver": {
+			"value": "sayantankundu1611@gmail.com"
+		},
+		"Storage Trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
+		},
 		"containerUri": {
 			"value": ""
 		},

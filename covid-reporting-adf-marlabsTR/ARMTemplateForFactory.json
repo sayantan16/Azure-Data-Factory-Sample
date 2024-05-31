@@ -18,6 +18,14 @@
 		"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://covidreportingdl1611.dfs.core.windows.net/"
+		},
+		"Storage Trigger_properties_Copy Pipeline updated_parameters_receiver": {
+			"type": "string",
+			"defaultValue": "sayantankundu1611@gmail.com"
+		},
+		"Storage Trigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
 		}
 	},
 	"variables": {
@@ -623,6 +631,38 @@
 				}
 			},
 			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Storage Trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Copy Pipeline updated",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"receiver": "[parameters('Storage Trigger_properties_Copy Pipeline updated_parameters_receiver')]"
+						}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/raw/blobs/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('Storage Trigger_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Copy Pipeline updated')]"
+			]
 		}
 	]
 }
