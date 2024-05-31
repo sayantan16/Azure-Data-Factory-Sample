@@ -3,7 +3,7 @@
 	"properties": {
 		"description": "Trigger to fire copy activity for a json file which contains multiple file URL to be processed",
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
