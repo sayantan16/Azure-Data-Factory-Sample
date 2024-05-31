@@ -1,0 +1,27 @@
+{
+	"name": "Storage Trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Copy Pipeline updated",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"receiver": "sayantankundu1611@gmail.com"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/raw/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
