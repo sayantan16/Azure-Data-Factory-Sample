@@ -639,7 +639,7 @@
 			"properties": {
 				"description": "This code sample shows you how to create a trigger for an Azure Data Factory pipeline. A trigger is a schedule that defines when a pipeline runs. This is a storage event trigger example.",
 				"annotations": [],
-				"runtimeState": "Stopped",
+				"runtimeState": "Started",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -654,7 +654,7 @@
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
 					"blobPathBeginsWith": "/raw/blobs/",
-					"ignoreEmptyBlobs": true,
+					"ignoreEmptyBlobs": false,
 					"scope": "[parameters('Storage Trigger_properties_typeProperties_scope')]",
 					"events": [
 						"Microsoft.Storage.BlobCreated"
