@@ -27,6 +27,14 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
 		},
+		"Storage Trigger New_properties_Copy Pipeline updated_parameters_receiver": {
+			"type": "string",
+			"defaultValue": "sayantankundu1611@gmail.com"
+		},
+		"Storage Trigger New_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -68,6 +76,12 @@
 					},
 					"Storage Trigger_properties_typeProperties_scope": {
 						"value": "[parameters('Storage Trigger_properties_typeProperties_scope')]"
+					},
+					"Storage Trigger New_properties_Copy Pipeline updated_parameters_receiver": {
+						"value": "[parameters('Storage Trigger New_properties_Copy Pipeline updated_parameters_receiver')]"
+					},
+					"Storage Trigger New_properties_typeProperties_scope": {
+						"value": "[parameters('Storage Trigger New_properties_typeProperties_scope')]"
 					}
 				}
 			},
