@@ -19,7 +19,7 @@
 			"type": "string",
 			"defaultValue": "https://covidreportingdl1611.dfs.core.windows.net/"
 		},
-		"Storage Trigger_properties_Copy Pipeline updated_parameters_receiver": {
+		"Storage Trigger_properties_Ingest_data_sa_parameters_receiver": {
 			"type": "string",
 			"defaultValue": "sayantankundu1611@gmail.com"
 		},
@@ -27,13 +27,17 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
 		},
-		"Storage Trigger New_properties_Copy Pipeline updated_parameters_receiver": {
+		"Storage Trigger New_properties_Ingest_data_sa_parameters_receiver": {
 			"type": "string",
 			"defaultValue": "sayantankundu1611@gmail.com"
 		},
 		"Storage Trigger New_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
+		},
+		"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/pamuba/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -71,14 +75,17 @@
 					"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
 						"value": "[parameters('dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url')]"
 					},
-					"Storage Trigger_properties_Copy Pipeline updated_parameters_receiver": {
-						"value": "[parameters('Storage Trigger_properties_Copy Pipeline updated_parameters_receiver')]"
+					"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
+						"value": "[parameters('sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url')]"
+					},
+					"Storage Trigger_properties_Ingest_data_sa_parameters_receiver": {
+						"value": "[parameters('Storage Trigger_properties_Ingest_data_sa_parameters_receiver')]"
 					},
 					"Storage Trigger_properties_typeProperties_scope": {
 						"value": "[parameters('Storage Trigger_properties_typeProperties_scope')]"
 					},
-					"Storage Trigger New_properties_Copy Pipeline updated_parameters_receiver": {
-						"value": "[parameters('Storage Trigger New_properties_Copy Pipeline updated_parameters_receiver')]"
+					"Storage Trigger New_properties_Ingest_data_sa_parameters_receiver": {
+						"value": "[parameters('Storage Trigger New_properties_Ingest_data_sa_parameters_receiver')]"
 					},
 					"Storage Trigger New_properties_typeProperties_scope": {
 						"value": "[parameters('Storage Trigger New_properties_typeProperties_scope')]"

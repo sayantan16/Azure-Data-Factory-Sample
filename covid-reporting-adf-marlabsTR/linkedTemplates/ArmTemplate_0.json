@@ -19,7 +19,11 @@
 			"type": "string",
 			"defaultValue": "https://covidreportingdl1611.dfs.core.windows.net/"
 		},
-		"Storage Trigger_properties_Copy Pipeline updated_parameters_receiver": {
+		"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/pamuba/"
+		},
+		"Storage Trigger_properties_Ingest_data_sa_parameters_receiver": {
 			"type": "string",
 			"defaultValue": "sayantankundu1611@gmail.com"
 		},
@@ -27,7 +31,7 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
 		},
-		"Storage Trigger New_properties_Copy Pipeline updated_parameters_receiver": {
+		"Storage Trigger New_properties_Ingest_data_sa_parameters_receiver": {
 			"type": "string",
 			"defaultValue": "sayantankundu1611@gmail.com"
 		},
@@ -66,6 +70,21 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('sa_linkedsrvc_covidreporting_marlabs_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sa_linkedsrvc_http_openData_marlabs_EU')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "HttpServer",
+				"typeProperties": {
+					"url": "[parameters('sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url')]",
+					"enableServerCertificateValidation": true,
+					"authenticationType": "Anonymous"
 				}
 			},
 			"dependsOn": []
@@ -129,7 +148,61 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Copy Pipeline updated')]",
+			"name": "[concat(parameters('factoryName'), '/dataset_cases_deaths_raw_http')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "sa_linkedsrvc_http_openData_marlabs_EU",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "HttpServerLocation",
+						"relativeUrl": "PythonDE/main/cases_deaths.csv"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/sa_linkedsrvc_http_openData_marlabs_EU')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataset_cases_deaths_raw_dl')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "dl_linkedsrvc_covidreporting_marlabs",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileSystem": "population"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/dl_linkedsrvc_covidreporting_marlabs')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Ingest_data_sa')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -356,6 +429,82 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Ingest_data_http')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Cases and Deaths Data",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "HttpReadSettings",
+									"requestMethod": "GET"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "dataset_cases_deaths_raw_http",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "dataset_cases_deaths_raw_dl",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/dataset_cases_deaths_raw_http')]",
+				"[concat(variables('factoryId'), '/datasets/dataset_cases_deaths_raw_dl')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Storage Trigger')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -366,11 +515,11 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "Copy Pipeline updated",
+							"referenceName": "Ingest_data_sa",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"receiver": "[parameters('Storage Trigger_properties_Copy Pipeline updated_parameters_receiver')]"
+							"receiver": "[parameters('Storage Trigger_properties_Ingest_data_sa_parameters_receiver')]"
 						}
 					}
 				],
@@ -385,7 +534,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Copy Pipeline updated')]"
+				"[concat(variables('factoryId'), '/pipelines/Ingest_data_sa')]"
 			]
 		},
 		{
@@ -399,11 +548,11 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "Copy Pipeline updated",
+							"referenceName": "Ingest_data_sa",
 							"type": "PipelineReference"
 						},
 						"parameters": {
-							"receiver": "[parameters('Storage Trigger New_properties_Copy Pipeline updated_parameters_receiver')]"
+							"receiver": "[parameters('Storage Trigger New_properties_Ingest_data_sa_parameters_receiver')]"
 						}
 					}
 				],
@@ -418,7 +567,7 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Copy Pipeline updated')]"
+				"[concat(variables('factoryId'), '/pipelines/Ingest_data_sa')]"
 			]
 		}
 	]
