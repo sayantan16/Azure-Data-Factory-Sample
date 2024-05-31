@@ -147,13 +147,13 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "sa_dataset_covidreporting_marlabs1",
+									"referenceName": "sa_dataset_covidreporting_marlabs",
 									"type": "DatasetReference"
 								}
 							],
 							"outputs": [
 								{
-									"referenceName": "dl_dataset_covidreporting_marlabs1",
+									"referenceName": "dl_dataset_covidreporting_marlabs",
 									"type": "DatasetReference"
 								}
 							]
