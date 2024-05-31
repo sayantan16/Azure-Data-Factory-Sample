@@ -10,7 +10,9 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"container": "source"
+				"fileName": "population_by_age.tsv.gz",
+				"folderPath": "population",
+				"container": "raw"
 			},
 			"columnDelimiter": "\t",
 			"compressionCodec": "gzip",
