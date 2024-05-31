@@ -30,14 +30,6 @@
 		"Storage Trigger_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
-		},
-		"Storage Trigger New_properties_Ingest_data_sa_parameters_receiver": {
-			"type": "string",
-			"defaultValue": "sayantankundu1611@gmail.com"
-		},
-		"Storage Trigger New_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
 		}
 	},
 	"variables": {
@@ -503,7 +495,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"relativeURL": {
-										"value": "@variables('sourceRelativeURL')",
+										"value": "@pipeline().parameters.sourceRelativeURL",
 										"type": "Expression"
 									}
 								}
@@ -515,7 +507,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"fileName": {
-										"value": "@variables('sinkFileName')",
+										"value": "@pipeline().parameters.sinkFileName",
 										"type": "Expression"
 									}
 								}
@@ -526,14 +518,12 @@
 				"policy": {
 					"elapsedTimeMetric": {}
 				},
-				"variables": {
+				"parameters": {
 					"sourceRelativeURL": {
-						"type": "String",
-						"defaultValue": "PythonDE/main/hospital_admissions.csv"
+						"type": "string"
 					},
 					"sinkFileName": {
-						"type": "String",
-						"defaultValue": "hospital_admissions.csv"
+						"type": "string"
 					}
 				},
 				"annotations": []
@@ -550,7 +540,7 @@
 			"properties": {
 				"description": "This code sample shows you how to create a trigger for an Azure Data Factory pipeline. A trigger is a schedule that defines when a pipeline runs. This is a storage event trigger example.",
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -567,39 +557,6 @@
 					"blobPathBeginsWith": "/raw/blobs/",
 					"ignoreEmptyBlobs": false,
 					"scope": "[parameters('Storage Trigger_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Ingest_data_sa')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Storage Trigger New')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Newly adding storage trigger to check for issues",
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Ingest_data_sa",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"receiver": "[parameters('Storage Trigger New_properties_Ingest_data_sa_parameters_receiver')]"
-						}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/raw/blobs/",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('Storage Trigger New_properties_typeProperties_scope')]",
 					"events": [
 						"Microsoft.Storage.BlobCreated"
 					]
