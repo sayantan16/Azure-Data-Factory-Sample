@@ -31,6 +31,14 @@
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/pamuba/"
 		},
+		"http_ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL": {
+			"type": "string",
+			"defaultValue": "PythonDE/main/hospital_admissions.csv"
+		},
+		"http_ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName": {
+			"type": "string",
+			"defaultValue": "hospital_admissions.csv"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -75,6 +83,12 @@
 					},
 					"Storage Trigger_properties_typeProperties_scope": {
 						"value": "[parameters('Storage Trigger_properties_typeProperties_scope')]"
+					},
+					"http_ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL": {
+						"value": "[parameters('http_ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL')]"
+					},
+					"http_ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName": {
+						"value": "[parameters('http_ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName')]"
 					}
 				}
 			},

@@ -22,6 +22,12 @@
 		},
 		"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/pamuba/"
+		},
+		"http_ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL": {
+			"value": "PythonDE/main/hospital_admissions.csv"
+		},
+		"http_ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName": {
+			"value": "hospital_admissions.csv"
 		}
 	}
 }
