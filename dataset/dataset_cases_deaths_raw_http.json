@@ -1,0 +1,22 @@
+{
+	"name": "dataset_cases_deaths_raw_http",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sa_linkedsrvc_http_openData_marlabs_EU",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "PythonDE/main/cases_deaths.csv"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

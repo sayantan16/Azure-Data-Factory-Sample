@@ -7,7 +7,7 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "Copy Pipeline updated",
+					"referenceName": "Ingest_data_sa",
 					"type": "PipelineReference"
 				},
 				"parameters": {
