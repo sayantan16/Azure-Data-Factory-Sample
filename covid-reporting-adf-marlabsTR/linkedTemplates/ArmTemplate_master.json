@@ -19,6 +19,10 @@
 			"type": "string",
 			"defaultValue": "https://covidreportingdl1611.dfs.core.windows.net/"
 		},
+		"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/pamuba/"
+		},
 		"Storage Trigger_properties_Ingest_data_sa_parameters_receiver": {
 			"type": "string",
 			"defaultValue": "sayantankundu1611@gmail.com"
@@ -26,10 +30,6 @@
 		"Storage Trigger_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
-		},
-		"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://raw.githubusercontent.com/pamuba/"
 		},
 		"http_ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL": {
 			"type": "string",
