@@ -579,6 +579,7 @@
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"description": "Schedule Trigger type to ingest data from HTTP source",
 				"annotations": [],
 				"runtimeState": "Started",
 				"pipelines": [
@@ -597,9 +598,9 @@
 				"typeProperties": {
 					"recurrence": {
 						"frequency": "Minute",
-						"interval": 2,
-						"startTime": "2024-05-31T20:16:00",
-						"endTime": "2024-06-01T20:16:00",
+						"interval": 1,
+						"startTime": "2024-06-01T16:24:00",
+						"endTime": "2024-06-02T16:28:00",
 						"timeZone": "Eastern Standard Time"
 					}
 				}
