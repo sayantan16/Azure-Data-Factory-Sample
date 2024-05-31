@@ -1,6 +1,7 @@
 {
 	"name": "http_ingest_trigger",
 	"properties": {
+		"description": "Schedule Trigger type to ingest data from HTTP source",
 		"annotations": [],
 		"runtimeState": "Started",
 		"pipelines": [
@@ -20,8 +21,8 @@
 			"recurrence": {
 				"frequency": "Minute",
 				"interval": 2,
-				"startTime": "2024-05-31T20:16:00",
-				"endTime": "2024-06-01T20:16:00",
+				"startTime": "2024-06-01T16:22:00",
+				"endTime": "2024-06-02T16:26:00",
 				"timeZone": "Eastern Standard Time"
 			}
 		}
