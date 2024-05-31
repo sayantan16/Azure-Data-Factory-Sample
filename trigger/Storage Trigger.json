@@ -1,6 +1,7 @@
 {
 	"name": "Storage Trigger",
 	"properties": {
+		"description": "This code sample shows you how to create a trigger for an Azure Data Factory pipeline. A trigger is a schedule that defines when a pipeline runs.",
 		"annotations": [],
 		"runtimeState": "Started",
 		"pipelines": [
