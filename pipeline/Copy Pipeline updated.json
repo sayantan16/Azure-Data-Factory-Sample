@@ -8,8 +8,13 @@
 				"dependsOn": [],
 				"userProperties": [],
 				"typeProperties": {
+					"dataset": {
+						"referenceName": "sa_dataset_covidreporting_marlabs",
+						"type": "DatasetReference"
+					},
 					"timeout": "0.00:04:00",
-					"sleep": 30
+					"sleep": 30,
+					"minimumSize": 1024
 				}
 			},
 			{
@@ -32,6 +37,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"dataset": {
+						"referenceName": "sa_dataset_covidreporting_marlabs",
+						"type": "DatasetReference"
+					},
 					"fieldList": [
 						"columnCount"
 					],
