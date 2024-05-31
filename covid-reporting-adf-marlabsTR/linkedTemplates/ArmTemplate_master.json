@@ -1,0 +1,105 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "covid-reporting-adf-marlabsTR"
+		},
+		"dl_linkedsrvc_covidreporting_marlabs_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'dl_linkedsrvc_covidreporting_marlabs'"
+		},
+		"sa_linkedsrvc_covidreporting_marlabs_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'sa_linkedsrvc_covidreporting_marlabs'"
+		},
+		"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://covidreportingdl1611.dfs.core.windows.net/"
+		},
+		"Storage Trigger_properties_Ingest_data_sa_parameters_receiver": {
+			"type": "string",
+			"defaultValue": "sayantankundu1611@gmail.com"
+		},
+		"Storage Trigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
+		},
+		"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com/pamuba/"
+		},
+		"http_ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL": {
+			"type": "string",
+			"defaultValue": "PythonDE/main/hospital_admissions.csv"
+		},
+		"http_ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName": {
+			"type": "string",
+			"defaultValue": "hospital_admissions.csv"
+		},
+		"multi_file_http_trigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "covid-reporting-adf-marlabsTR_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"dl_linkedsrvc_covidreporting_marlabs_accountKey": {
+						"value": "[parameters('dl_linkedsrvc_covidreporting_marlabs_accountKey')]"
+					},
+					"sa_linkedsrvc_covidreporting_marlabs_connectionString": {
+						"value": "[parameters('sa_linkedsrvc_covidreporting_marlabs_connectionString')]"
+					},
+					"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
+						"value": "[parameters('dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url')]"
+					},
+					"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
+						"value": "[parameters('sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url')]"
+					},
+					"Storage Trigger_properties_Ingest_data_sa_parameters_receiver": {
+						"value": "[parameters('Storage Trigger_properties_Ingest_data_sa_parameters_receiver')]"
+					},
+					"Storage Trigger_properties_typeProperties_scope": {
+						"value": "[parameters('Storage Trigger_properties_typeProperties_scope')]"
+					},
+					"http_ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL": {
+						"value": "[parameters('http_ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL')]"
+					},
+					"http_ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName": {
+						"value": "[parameters('http_ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName')]"
+					},
+					"multi_file_http_trigger_properties_typeProperties_scope": {
+						"value": "[parameters('multi_file_http_trigger_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "covid-reporting-adf-marlabsTR"
+		},
+		"dl_linkedsrvc_covidreporting_marlabs_accountKey": {
+			"value": ""
+		},
+		"sa_linkedsrvc_covidreporting_marlabs_connectionString": {
+			"value": ""
+		},
+		"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
+			"value": "https://covidreportingdl1611.dfs.core.windows.net/"
+		},
+		"Storage Trigger_properties_Ingest_data_sa_parameters_receiver": {
+			"value": "sayantankundu1611@gmail.com"
+		},
+		"Storage Trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
+		},
+		"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/pamuba/"
+		},
+		"http_ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL": {
+			"value": "PythonDE/main/hospital_admissions.csv"
+		},
+		"http_ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName": {
+			"value": "hospital_admissions.csv"
+		},
+		"multi_file_http_trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/ea369f36-ef36-4624-b0ee-ce093f403b6d/resourceGroups/marlabs_training/providers/Microsoft.Storage/storageAccounts/covidreportingsa1611"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
