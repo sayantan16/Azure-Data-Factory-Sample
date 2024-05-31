@@ -3,7 +3,7 @@
 	"properties": {
 		"description": "Newly adding storage trigger to check for issues",
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
