@@ -267,7 +267,7 @@
 										},
 										"url": "https://prod-38.eastus.logic.azure.com:443/workflows/9e99172488aa45298f15e3bf009b21f0/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=DkV8ecQm9_RuWBFx_cQlHmmkdZ1fWrKXlmLNsuHRMLA",
 										"body": {
-											"message": "Column count mismatch detected. Expected: <expectedColumnCount>, Actual: @{activity('Get Metadata').output.columnCount}",
+											"message": "Column count mismatch detected. Expected: 13, Actual: @{activity('Get Metadata').output.columnCount}",
 											"dataFactoryName": "@{pipeline().DataFactory}",
 											"pipelineName": "@{pipeline().Pipeline}",
 											"receiver": "@pipeline().parameters.receiver"
