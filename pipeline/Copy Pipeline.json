@@ -201,6 +201,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"receiver": {
+				"type": "string",
+				"defaultValue": "sayantankundu1611@gmail.com"
+			}
+		},
 		"annotations": []
 	}
 }
