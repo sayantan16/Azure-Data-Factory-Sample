@@ -38,14 +38,6 @@
 		"http_ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName": {
 			"type": "string",
 			"defaultValue": "hospital_admissions.csv"
-		},
-		"ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL": {
-			"type": "string",
-			"defaultValue": "PythonDE/main/hospital_admissions.csv"
-		},
-		"ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName": {
-			"type": "string",
-			"defaultValue": "hospital_admissions.csv"
 		}
 	},
 	"variables": {
@@ -609,40 +601,6 @@
 						"interval": 1,
 						"startTime": "2024-06-01T16:24:00",
 						"endTime": "2024-06-02T16:28:00",
-						"timeZone": "Eastern Standard Time"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Ingest_data_http')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ingest_trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Ingest_data_http",
-							"type": "PipelineReference"
-						},
-						"parameters": {
-							"sourceRelativeURL": "[parameters('ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL')]",
-							"sinkFileName": "[parameters('ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName')]"
-						}
-					}
-				],
-				"type": "ScheduleTrigger",
-				"typeProperties": {
-					"recurrence": {
-						"frequency": "Minute",
-						"interval": 1,
-						"startTime": "2024-06-01T16:26:00",
-						"endTime": "2024-06-02T16:30:00",
 						"timeZone": "Eastern Standard Time"
 					}
 				}

@@ -29,12 +29,6 @@
 		"http_ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName": {
 			"value": "hospital_admissions.csv"
 		},
-		"ingest_trigger_properties_Ingest_data_http_parameters_sourceRelativeURL": {
-			"value": "PythonDE/main/hospital_admissions.csv"
-		},
-		"ingest_trigger_properties_Ingest_data_http_parameters_sinkFileName": {
-			"value": "hospital_admissions.csv"
-		},
 		"containerUri": {
 			"value": ""
 		},
