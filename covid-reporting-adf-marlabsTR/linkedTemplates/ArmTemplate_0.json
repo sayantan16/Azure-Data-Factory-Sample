@@ -98,65 +98,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/dl_dataset_covidreporting_marlabs1')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "dl_linkedsrvc_covidreporting_marlabs",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"folderPath": "population"
-					},
-					"columnDelimiter": "\t",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/dl_linkedsrvc_covidreporting_marlabs')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/sa_dataset_covidreporting_marlabs')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "sa_linkedsrvc_covidreporting_marlabs",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "population_by_age.tsv.gz",
-						"folderPath": "population",
-						"container": "raw"
-					},
-					"columnDelimiter": "\t",
-					"compressionCodec": "gzip",
-					"compressionLevel": "Optimal",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/sa_linkedsrvc_covidreporting_marlabs')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/sa_dataset_covidreporting_marlabs1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -199,7 +141,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataset": {
-								"referenceName": "sa_dataset_covidreporting_marlabs1",
+								"referenceName": "sa_dataset_covidreporting_marlabs",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -229,7 +171,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataset": {
-								"referenceName": "sa_dataset_covidreporting_marlabs1",
+								"referenceName": "sa_dataset_covidreporting_marlabs",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -284,233 +226,6 @@
 										"url": "https://prod-38.eastus.logic.azure.com:443/workflows/9e99172488aa45298f15e3bf009b21f0/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=DkV8ecQm9_RuWBFx_cQlHmmkdZ1fWrKXlmLNsuHRMLA",
 										"body": {
 											"message": "Column count mismatch detected. Expected: 13, Actual: @{activity('Get Metadata').output.columnCount}",
-											"dataFactoryName": "@{pipeline().DataFactory}",
-											"pipelineName": "@{pipeline().Pipeline}",
-											"receiver": "@pipeline().parameters.receiver"
-										}
-									}
-								}
-							],
-							"ifTrueActivities": [
-								{
-									"name": "Copy data1",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "AzureBlobStorageReadSettings",
-												"recursive": true,
-												"enablePartitionDiscovery": false
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "DelimitedTextSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "DelimitedTextWriteSettings",
-												"quoteAllText": true,
-												"fileExtension": ".tsv"
-											}
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "sa_dataset_covidreporting_marlabs1",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "dl_dataset_covidreporting_marlabs1",
-											"type": "DatasetReference",
-											"parameters": {}
-										}
-									]
-								},
-								{
-									"name": "Delete1",
-									"type": "Delete",
-									"dependsOn": [
-										{
-											"activity": "Copy data1",
-											"dependencyConditions": [
-												"Succeeded"
-											]
-										}
-									],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"dataset": {
-											"referenceName": "sa_dataset_covidreporting_marlabs1",
-											"type": "DatasetReference",
-											"parameters": {}
-										},
-										"logStorageSettings": {
-											"linkedServiceName": {
-												"referenceName": "sa_linkedsrvc_covidreporting_marlabs",
-												"type": "LinkedServiceReference"
-											},
-											"path": "logs"
-										},
-										"enableLogging": true,
-										"storeSettings": {
-											"type": "AzureBlobStorageReadSettings",
-											"recursive": true,
-											"enablePartitionDiscovery": false
-										}
-									}
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"parameters": {
-					"receiver": {
-						"type": "string",
-						"defaultValue": "sayantankundu1611@gmail.com"
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/sa_dataset_covidreporting_marlabs1')]",
-				"[concat(variables('factoryId'), '/datasets/dl_dataset_covidreporting_marlabs1')]",
-				"[concat(variables('factoryId'), '/linkedServices/sa_linkedsrvc_covidreporting_marlabs')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Copy Pipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Check if file exists",
-						"type": "Validation",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"dataset": {
-								"referenceName": "sa_dataset_covidreporting_marlabs",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"timeout": "0.00:04:00",
-							"sleep": 30,
-							"minimumSize": 1024
-						}
-					},
-					{
-						"name": "Get Metadata",
-						"type": "GetMetadata",
-						"dependsOn": [
-							{
-								"activity": "Check if file exists",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.00:20:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataset": {
-								"referenceName": "sa_dataset_covidreporting_marlabs",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"fieldList": [
-								"columnCount"
-							],
-							"storeSettings": {
-								"type": "AzureBlobStorageReadSettings",
-								"recursive": true,
-								"enablePartitionDiscovery": false
-							},
-							"formatSettings": {
-								"type": "DelimitedTextReadSettings"
-							}
-						}
-					},
-					{
-						"name": "If Column Count Matches",
-						"type": "IfCondition",
-						"dependsOn": [
-							{
-								"activity": "Get Metadata",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"userProperties": [],
-						"typeProperties": {
-							"expression": {
-								"value": "@equals(activity('Get Metadata').output.columnCount, 13)",
-								"type": "Expression"
-							},
-							"ifFalseActivities": [
-								{
-									"name": "Web1",
-									"type": "WebActivity",
-									"dependsOn": [],
-									"policy": {
-										"timeout": "0.12:00:00",
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"method": "POST",
-										"headers": {
-											"Content-Type": "application/json"
-										},
-										"url": "https://prod-38.eastus.logic.azure.com:443/workflows/9e99172488aa45298f15e3bf009b21f0/triggers/When_a_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=DkV8ecQm9_RuWBFx_cQlHmmkdZ1fWrKXlmLNsuHRMLA",
-										"body": {
-											"message": "@{activity('Copy1').output.dataWritten}",
 											"dataFactoryName": "@{pipeline().DataFactory}",
 											"pipelineName": "@{pipeline().Pipeline}",
 											"receiver": "@pipeline().parameters.receiver"
@@ -680,7 +395,7 @@
 			"properties": {
 				"description": "Newly adding storage trigger to check for issues",
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
