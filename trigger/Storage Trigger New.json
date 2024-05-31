@@ -4,17 +4,7 @@
 		"description": "Newly adding storage trigger to check for issues",
 		"annotations": [],
 		"runtimeState": "Stopped",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "Ingest_data_sa",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"receiver": "sayantankundu1611@gmail.com"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
 			"blobPathBeginsWith": "/raw/blobs/",
