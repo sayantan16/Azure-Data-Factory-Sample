@@ -1,0 +1,25 @@
+{
+	"name": "sa_dataset_covidreporting_marlabs",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sa_linkedsrvc_covidreporting_marlabs",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "source"
+			},
+			"columnDelimiter": "\t",
+			"compressionCodec": "gzip",
+			"compressionLevel": "Optimal",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
