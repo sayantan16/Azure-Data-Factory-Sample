@@ -5,7 +5,14 @@
 			{
 				"name": "Copy data1",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Check if file exists",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -59,6 +66,21 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Check if file exists",
+				"type": "Validation",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "sa_dataset_covidreporting_marlabs",
+						"type": "DatasetReference"
+					},
+					"timeout": "0.00:04:00",
+					"sleep": 30,
+					"minimumSize": 1024
+				}
 			}
 		],
 		"annotations": []
