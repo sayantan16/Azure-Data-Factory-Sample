@@ -3,18 +3,7 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "Ingest_data_http",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"sourceRelativeURL": "PythonDE/main/hospital_admissions.csv",
-					"sinkFileName": "hospital_admissions.csv"
-				}
-			}
-		],
+		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
