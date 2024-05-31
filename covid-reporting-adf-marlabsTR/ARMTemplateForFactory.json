@@ -581,7 +581,7 @@
 			"properties": {
 				"description": "Schedule Trigger type to ingest data from HTTP source",
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
