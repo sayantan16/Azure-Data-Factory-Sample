@@ -1,0 +1,29 @@
+{
+	"name": "http_ingest_trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Ingest_data_http",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"sourceRelativeURL": "PythonDE/main/hospital_admissions.csv",
+					"sinkFileName": "hospital_admissions.csv"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 2,
+				"startTime": "2024-05-31T20:16:00",
+				"endTime": "2024-06-01T20:16:00",
+				"timeZone": "Eastern Standard Time"
+			}
+		}
+	}
+}
