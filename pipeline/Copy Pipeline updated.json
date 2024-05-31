@@ -178,6 +178,10 @@
 							},
 							"userProperties": [],
 							"typeProperties": {
+								"dataset": {
+									"referenceName": "sa_dataset_covidreporting_marlabs",
+									"type": "DatasetReference"
+								},
 								"logStorageSettings": {
 									"linkedServiceName": {
 										"referenceName": "sa_linkedsrvc_covidreporting_marlabs",
