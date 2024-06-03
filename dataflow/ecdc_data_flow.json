@@ -12,10 +12,21 @@
 					"name": "CasesandDeaths"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dl_dataset_Proc_casesDeaths_marlabs",
+						"type": "DatasetReference"
+					},
+					"name": "FinalStorage"
+				}
+			],
 			"transformations": [
 				{
 					"name": "FilterEuropeOnly"
+				},
+				{
+					"name": "SelectReqColms"
 				}
 			],
 			"scriptLines": [
@@ -33,7 +44,26 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> CasesandDeaths",
-				"CasesandDeaths filter(continent=='Europe' && not(isNull(country_code))) ~> FilterEuropeOnly"
+				"CasesandDeaths filter(continent=='Asia' && not(isNull(country_code))) ~> FilterEuropeOnly",
+				"FilterEuropeOnly select(mapColumn(",
+				"          country,",
+				"          country_code,",
+				"          population,",
+				"          indicator,",
+				"          daily_count,",
+				"          date,",
+				"          rate_14_day,",
+				"          source",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelectReqColms",
+				"SelectReqColms sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> FinalStorage"
 			]
 		}
 	}
