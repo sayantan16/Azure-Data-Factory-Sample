@@ -3,11 +3,37 @@
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
-			"sources": [],
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "dl_dataflow_raw_casesDeaths_marlabs",
+						"type": "DatasetReference"
+					},
+					"name": "CasesandDeaths"
+				}
+			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "FilterEuropeOnly"
+				}
+			],
 			"scriptLines": [
-				""
+				"source(output(",
+				"          country as string,",
+				"          country_code as string,",
+				"          continent as string,",
+				"          population as integer,",
+				"          indicator as string,",
+				"          daily_count as short,",
+				"          date as date,",
+				"          rate_14_day as double,",
+				"          source as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> CasesandDeaths",
+				"CasesandDeaths filter(continent=='Europe' && not(isNull(country_code))) ~> FilterEuropeOnly"
 			]
 		}
 	}
