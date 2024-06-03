@@ -11,6 +11,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
+				"fileName": "file_compilation.json",
 				"folderPath": "json",
 				"container": "raw"
 			}
