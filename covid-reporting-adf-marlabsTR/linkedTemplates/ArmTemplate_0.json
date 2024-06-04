@@ -244,7 +244,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileSystem": "target"
+						"fileSystem": "processed"
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -279,6 +279,55 @@
 					"quoteChar": "\""
 				},
 				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/dl_linkedsrvc_covidreporting_marlabs')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_country_lookup')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "dl_linkedsrvc_covidreporting_marlabs",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "country_lookup.csv",
+						"fileSystem": "lookup"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "country",
+						"type": "String"
+					},
+					{
+						"name": "country_code_2_digit",
+						"type": "String"
+					},
+					{
+						"name": "country_code_3_digit",
+						"type": "String"
+					},
+					{
+						"name": "continent",
+						"type": "String"
+					},
+					{
+						"name": "population",
+						"type": "String"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/dl_linkedsrvc_covidreporting_marlabs')]"
@@ -862,6 +911,13 @@
 								"type": "DatasetReference"
 							},
 							"name": "CasesandDeaths"
+						},
+						{
+							"dataset": {
+								"referenceName": "ds_country_lookup",
+								"type": "DatasetReference"
+							},
+							"name": "CountryLookup"
 						}
 					],
 					"sinks": [
@@ -870,7 +926,11 @@
 								"referenceName": "dl_dataset_Proc_casesDeaths_marlabs",
 								"type": "DatasetReference"
 							},
-							"name": "FinalStorage"
+							"name": "CasesDeathsSink",
+							"rejectedDataLinkedService": {
+								"referenceName": "dl_linkedsrvc_covidreporting_marlabs",
+								"type": "LinkedServiceReference"
+							}
 						}
 					],
 					"transformations": [
@@ -879,6 +939,15 @@
 						},
 						{
 							"name": "SelectReqColms"
+						},
+						{
+							"name": "PivotCount"
+						},
+						{
+							"name": "LookupCountry"
+						},
+						{
+							"name": "SelectFinalCols"
 						}
 					],
 					"scriptLines": [
@@ -896,6 +965,16 @@
 						"     allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     ignoreNoFilesFound: false) ~> CasesandDeaths",
+						"source(output(",
+						"          country as string,",
+						"          country_code_2_digit as string,",
+						"          country_code_3_digit as string,",
+						"          continent as string,",
+						"          population as integer",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> CountryLookup",
 						"CasesandDeaths filter(continent=='Europe' && not(isNull(country_code))) ~> FilterEuropeOnly",
 						"FilterEuropeOnly select(mapColumn(",
 						"          country,",
@@ -903,25 +982,53 @@
 						"          population,",
 						"          indicator,",
 						"          daily_count,",
-						"          date,",
-						"          rate_14_day,",
-						"          source",
+						"          source,",
+						"          each(match(name=='date'),",
+						"               'reported_date' = $$)",
 						"     ),",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true) ~> SelectReqColms",
-						"SelectReqColms sink(allowSchemaDrift: true,",
+						"SelectReqColms pivot(groupBy(country,",
+						"          country_code,",
+						"          population,",
+						"          source,",
+						"          reported_date),",
+						"     pivotBy(indicator, ['confirmed cases', 'deaths']),",
+						"     count = sum(daily_count),",
+						"     columnNaming: '$V_$N',",
+						"     lateral: true) ~> PivotCount",
+						"PivotCount, CountryLookup lookup(PivotCount@country == CountryLookup@country,",
+						"     multiple: false,",
+						"     pickup: 'any',",
+						"     broadcast: 'auto')~> LookupCountry",
+						"LookupCountry select(mapColumn(",
+						"          country = PivotCount@country,",
+						"          country_code_2_digit,",
+						"          country_code_3_digit,",
+						"          population = PivotCount@population,",
+						"          cases_count = {confirmed cases_count},",
+						"          deaths_count,",
+						"          reported_date,",
+						"          source,",
+						"          continent",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectFinalCols",
+						"SelectFinalCols sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> FinalStorage"
+						"     skipDuplicateMapOutputs: true) ~> CasesDeathsSink"
 					]
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/dl_dataflow_raw_casesDeaths_marlabs')]",
-				"[concat(variables('factoryId'), '/datasets/dl_dataset_Proc_casesDeaths_marlabs')]"
+				"[concat(variables('factoryId'), '/datasets/ds_country_lookup')]",
+				"[concat(variables('factoryId'), '/datasets/dl_dataset_Proc_casesDeaths_marlabs')]",
+				"[concat(variables('factoryId'), '/linkedServices/dl_linkedsrvc_covidreporting_marlabs')]"
 			]
 		},
 		{
@@ -949,7 +1056,8 @@
 								"parameters": {},
 								"datasetParameters": {
 									"CasesandDeaths": {},
-									"FinalStorage": {}
+									"CountryLookup": {},
+									"CasesDeathsSink": {}
 								}
 							},
 							"staging": {},
