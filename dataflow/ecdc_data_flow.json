@@ -44,7 +44,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> CasesandDeaths",
-				"CasesandDeaths filter(continent=='Asia' && not(isNull(country_code))) ~> FilterEuropeOnly",
+				"CasesandDeaths filter(continent=='Europe' && not(isNull(country_code))) ~> FilterEuropeOnly",
 				"FilterEuropeOnly select(mapColumn(",
 				"          country,",
 				"          country_code,",
