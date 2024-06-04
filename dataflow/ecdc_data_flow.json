@@ -19,7 +19,19 @@
 					"name": "CountryLookup"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dl_dataset_Proc_casesDeaths_marlabs",
+						"type": "DatasetReference"
+					},
+					"name": "CasesDeathsSink",
+					"rejectedDataLinkedService": {
+						"referenceName": "dl_linkedsrvc_covidreporting_marlabs",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
 			"transformations": [
 				{
 					"name": "FilterEuropeOnly"
@@ -34,7 +46,7 @@
 					"name": "LookupCountry"
 				},
 				{
-					"name": "select1"
+					"name": "SelectFinalCols"
 				}
 			],
 			"scriptLines": [
@@ -99,7 +111,14 @@
 				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true) ~> SelectFinalCols",
+				"SelectFinalCols sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> CasesDeathsSink"
 			]
 		}
 	}
