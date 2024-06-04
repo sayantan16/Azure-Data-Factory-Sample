@@ -12,21 +12,16 @@
 					"name": "CasesandDeaths"
 				}
 			],
-			"sinks": [
-				{
-					"dataset": {
-						"referenceName": "dl_dataset_Proc_casesDeaths_marlabs",
-						"type": "DatasetReference"
-					},
-					"name": "FinalStorage"
-				}
-			],
+			"sinks": [],
 			"transformations": [
 				{
 					"name": "FilterEuropeOnly"
 				},
 				{
 					"name": "SelectReqColms"
+				},
+				{
+					"name": "PivotCount"
 				}
 			],
 			"scriptLines": [
@@ -51,19 +46,21 @@
 				"          population,",
 				"          indicator,",
 				"          daily_count,",
-				"          date,",
-				"          rate_14_day,",
-				"          source",
+				"          source,",
+				"          each(match(name == 'date'),",
+				"               'reported_date' = $$)",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> SelectReqColms",
-				"SelectReqColms sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: [],",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> FinalStorage"
+				"SelectReqColms pivot(groupBy(country,",
+				"          country_code,",
+				"          population,",
+				"          source,",
+				"          reported_date),",
+				"     pivotBy(indicator, ['confirmed cases', 'deaths']),",
+				"     count = sum(daily_count),",
+				"     columnNaming: '$V_$N',",
+				"     lateral: true) ~> PivotCount"
 			]
 		}
 	}
