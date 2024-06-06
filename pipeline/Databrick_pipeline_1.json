@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "Databrick_pipeline_1",
 	"properties": {
 		"activities": [
 			{
