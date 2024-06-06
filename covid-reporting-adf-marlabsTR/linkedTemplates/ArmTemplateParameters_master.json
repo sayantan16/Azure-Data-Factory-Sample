@@ -11,6 +11,9 @@
 		"sa_linkedsrvc_covidreporting_marlabs_connectionString": {
 			"value": ""
 		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
 		"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
 			"value": "https://covidreportingdl1611.dfs.core.windows.net/"
 		},

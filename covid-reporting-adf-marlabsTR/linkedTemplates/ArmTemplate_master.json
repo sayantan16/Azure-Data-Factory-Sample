@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'sa_linkedsrvc_covidreporting_marlabs'"
 		},
+		"AzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
+		},
 		"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://covidreportingdl1611.dfs.core.windows.net/"
@@ -76,11 +80,32 @@
 					"sa_linkedsrvc_covidreporting_marlabs_connectionString": {
 						"value": "[parameters('sa_linkedsrvc_covidreporting_marlabs_connectionString')]"
 					},
+					"AzureDatabricks1_accessToken": {
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
+					},
 					"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
 						"value": "[parameters('dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url')]"
 					},
 					"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
 						"value": "[parameters('sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "covid-reporting-adf-marlabsTR_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
 					},
 					"Storage Trigger_properties_Ingest_data_sa_parameters_receiver": {
 						"value": "[parameters('Storage Trigger_properties_Ingest_data_sa_parameters_receiver')]"
@@ -99,7 +124,9 @@
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'covid-reporting-adf-marlabsTR_ArmTemplate_0')]"
+			]
 		}
 	]
 }
