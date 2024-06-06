@@ -26,7 +26,15 @@
 					"name": "DimDateSource"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dl_dataset_covidreporting_marlabs",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "SelectRequiredFields1"
@@ -119,7 +127,14 @@
 				"DimDateSource derive(ecdc_year_week = toString(year) + '-W' + lpad(toString(week_of_year), 2, '0')) ~> DerivedECDCYearWeek",
 				"DerivedECDCYearWeek aggregate(groupBy(ecdc_year_week),",
 				"     week_start_date = min(date),",
-				"          week_end_date = max(date)) ~> AggregateDate"
+				"          week_end_date = max(date)) ~> AggregateDate",
+				"SplitDailyFromWeekly@Weekly sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
