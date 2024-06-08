@@ -1,0 +1,18 @@
+[
+  {
+    "sourceRelativeURL": "PythonDE/main/Customer_1.csv",
+    "sinkFileName": "Customer_1.csv"
+  },
+  {
+    "sourceRelativeURL": "PythonDE/main/Customer_2.csv",
+    "sinkFileName": "Customer_2.csv"
+  },
+  {
+    "sourceRelativeURL": "PythonDE/main/Customer_3.csv",
+    "sinkFileName": "Customer_3.csv"
+  },
+  {
+    "sourceRelativeURL": "PythonDE/main/Customer_4.csv",
+    "sinkFileName": "Customer_4.csv"
+  }
+]
