@@ -1,0 +1,45 @@
+{
+	"name": "sql_hospital_admits_marlabs",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "sql_linkedsrv_covidreporting_marlabs",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "country",
+				"type": "varchar"
+			},
+			{
+				"name": "indicator",
+				"type": "varchar"
+			},
+			{
+				"name": "date",
+				"type": "date"
+			},
+			{
+				"name": "year_week",
+				"type": "varchar"
+			},
+			{
+				"name": "value",
+				"type": "varchar"
+			},
+			{
+				"name": "source",
+				"type": "varchar"
+			},
+			{
+				"name": "url",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "covid_reporting",
+			"table": "hospital_admissions_daily"
+		}
+	}
+}
