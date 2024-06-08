@@ -4,6 +4,7 @@
 		"activities": [
 			{
 				"name": "CopyFromDLtoSQL",
+				"description": "TRUNCATE TABLE covid_reporting.hospital_admissions_daily",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
