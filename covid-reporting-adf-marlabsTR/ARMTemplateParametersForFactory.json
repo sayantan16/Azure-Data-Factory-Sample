@@ -5,13 +5,16 @@
 		"factoryName": {
 			"value": "covid-reporting-adf-marlabsTR"
 		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
 		"dl_linkedsrvc_covidreporting_marlabs_accountKey": {
 			"value": ""
 		},
 		"sa_linkedsrvc_covidreporting_marlabs_connectionString": {
 			"value": ""
 		},
-		"AzureDatabricks1_accessToken": {
+		"sql_linkedsrv_covidreporting_marlabs_password": {
 			"value": ""
 		},
 		"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
@@ -19,6 +22,15 @@
 		},
 		"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
 			"value": "https://raw.githubusercontent.com/pamuba/"
+		},
+		"sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_server": {
+			"value": "covidsqlservermarlsbs.database.windows.net"
+		},
+		"sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_database": {
+			"value": "covid"
+		},
+		"sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_userName": {
+			"value": "sqladmin"
 		},
 		"Storage Trigger_properties_Ingest_data_sa_parameters_receiver": {
 			"value": "sayantankundu1611@gmail.com"

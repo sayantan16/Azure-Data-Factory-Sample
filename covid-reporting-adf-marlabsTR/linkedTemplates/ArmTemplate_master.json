@@ -7,6 +7,10 @@
 			"metadata": "Data Factory name",
 			"defaultValue": "covid-reporting-adf-marlabsTR"
 		},
+		"AzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
+		},
 		"dl_linkedsrvc_covidreporting_marlabs_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'dl_linkedsrvc_covidreporting_marlabs'"
@@ -15,9 +19,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'sa_linkedsrvc_covidreporting_marlabs'"
 		},
-		"AzureDatabricks1_accessToken": {
+		"sql_linkedsrv_covidreporting_marlabs_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
+			"metadata": "Secure string for 'password' of 'sql_linkedsrv_covidreporting_marlabs'"
 		},
 		"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
 			"type": "string",
@@ -26,6 +30,18 @@
 		"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://raw.githubusercontent.com/pamuba/"
+		},
+		"sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "covidsqlservermarlsbs.database.windows.net"
+		},
+		"sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "covid"
+		},
+		"sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
 		},
 		"Storage Trigger_properties_Ingest_data_sa_parameters_receiver": {
 			"type": "string",
@@ -74,20 +90,32 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureDatabricks1_accessToken": {
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
+					},
 					"dl_linkedsrvc_covidreporting_marlabs_accountKey": {
 						"value": "[parameters('dl_linkedsrvc_covidreporting_marlabs_accountKey')]"
 					},
 					"sa_linkedsrvc_covidreporting_marlabs_connectionString": {
 						"value": "[parameters('sa_linkedsrvc_covidreporting_marlabs_connectionString')]"
 					},
-					"AzureDatabricks1_accessToken": {
-						"value": "[parameters('AzureDatabricks1_accessToken')]"
+					"sql_linkedsrv_covidreporting_marlabs_password": {
+						"value": "[parameters('sql_linkedsrv_covidreporting_marlabs_password')]"
 					},
 					"dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url": {
 						"value": "[parameters('dl_linkedsrvc_covidreporting_marlabs_properties_typeProperties_url')]"
 					},
 					"sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url": {
 						"value": "[parameters('sa_linkedsrvc_http_openData_marlabs_EU_properties_typeProperties_url')]"
+					},
+					"sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_server": {
+						"value": "[parameters('sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_server')]"
+					},
+					"sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_database": {
+						"value": "[parameters('sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_database')]"
+					},
+					"sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_userName": {
+						"value": "[parameters('sql_linkedsrv_covidreporting_marlabs_properties_typeProperties_userName')]"
 					}
 				}
 			},
